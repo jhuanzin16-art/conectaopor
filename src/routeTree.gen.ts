@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as ConcursosRouteImport } from './routes/concursos'
 import { Route as ConteudosRouteImport } from './routes/conteudos'
@@ -19,10 +20,15 @@ import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as EstagioRouteImport } from './routes/estagio'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VagasRouteImport } from './routes/vagas'
+import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CadastroRoute = CadastroRouteImport.update({
@@ -70,6 +76,11 @@ const VagasRoute = VagasRouteImport.update({
   path: '/vagas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPainelRoute = AuthenticatedPainelRouteImport.update({
+  id: '/painel',
+  path: '/painel',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/estagio': typeof EstagioRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/painel': typeof AuthenticatedPainelRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,10 +106,12 @@ export interface FileRoutesByTo {
   '/estagio': typeof EstagioRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/painel': typeof AuthenticatedPainelRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/cadastro': typeof CadastroRoute
   '/concursos': typeof ConcursosRoute
   '/conteudos': typeof ConteudosRoute
@@ -107,6 +121,7 @@ export interface FileRoutesById {
   '/estagio': typeof EstagioRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/_authenticated/painel': typeof AuthenticatedPainelRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +136,7 @@ export interface FileRouteTypes {
     | '/estagio'
     | '/sobre'
     | '/vagas'
+    | '/painel'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,9 +149,11 @@ export interface FileRouteTypes {
     | '/estagio'
     | '/sobre'
     | '/vagas'
+    | '/painel'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/cadastro'
     | '/concursos'
     | '/conteudos'
@@ -145,10 +163,12 @@ export interface FileRouteTypes {
     | '/estagio'
     | '/sobre'
     | '/vagas'
+    | '/_authenticated/painel'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   CadastroRoute: typeof CadastroRoute
   ConcursosRoute: typeof ConcursosRoute
   ConteudosRoute: typeof ConteudosRoute
@@ -167,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cadastro': {
@@ -232,11 +259,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VagasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/painel': {
+      id: '/_authenticated/painel'
+      path: '/painel'
+      fullPath: '/painel'
+      preLoaderRoute: typeof AuthenticatedPainelRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedPainelRoute: typeof AuthenticatedPainelRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedPainelRoute: AuthenticatedPainelRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   CadastroRoute: CadastroRoute,
   ConcursosRoute: ConcursosRoute,
   ConteudosRoute: ConteudosRoute,
