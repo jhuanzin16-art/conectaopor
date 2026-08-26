@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CadastroRouteImport } from './routes/cadastro'
+import { Route as ConcursosRouteImport } from './routes/concursos'
+import { Route as ConteudosRouteImport } from './routes/conteudos'
+import { Route as CurriculoRouteImport } from './routes/curriculo'
+import { Route as CursosRouteImport } from './routes/cursos'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as EstagioRouteImport } from './routes/estagio'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as VagasRouteImport } from './routes/vagas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CadastroRoute = CadastroRouteImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConcursosRoute = ConcursosRouteImport.update({
+  id: '/concursos',
+  path: '/concursos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConteudosRoute = ConteudosRouteImport.update({
+  id: '/conteudos',
+  path: '/conteudos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CurriculoRoute = CurriculoRouteImport.update({
+  id: '/curriculo',
+  path: '/curriculo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CursosRoute = CursosRouteImport.update({
+  id: '/cursos',
+  path: '/cursos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstagioRoute = EstagioRouteImport.update({
+  id: '/estagio',
+  path: '/estagio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VagasRoute = VagasRouteImport.update({
+  id: '/vagas',
+  path: '/vagas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
+  '/concursos': typeof ConcursosRoute
+  '/conteudos': typeof ConteudosRoute
+  '/curriculo': typeof CurriculoRoute
+  '/cursos': typeof CursosRoute
+  '/entrar': typeof EntrarRoute
+  '/estagio': typeof EstagioRoute
+  '/sobre': typeof SobreRoute
+  '/vagas': typeof VagasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
+  '/concursos': typeof ConcursosRoute
+  '/conteudos': typeof ConteudosRoute
+  '/curriculo': typeof CurriculoRoute
+  '/cursos': typeof CursosRoute
+  '/entrar': typeof EntrarRoute
+  '/estagio': typeof EstagioRoute
+  '/sobre': typeof SobreRoute
+  '/vagas': typeof VagasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
+  '/concursos': typeof ConcursosRoute
+  '/conteudos': typeof ConteudosRoute
+  '/curriculo': typeof CurriculoRoute
+  '/cursos': typeof CursosRoute
+  '/entrar': typeof EntrarRoute
+  '/estagio': typeof EstagioRoute
+  '/sobre': typeof SobreRoute
+  '/vagas': typeof VagasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cadastro'
+    | '/concursos'
+    | '/conteudos'
+    | '/curriculo'
+    | '/cursos'
+    | '/entrar'
+    | '/estagio'
+    | '/sobre'
+    | '/vagas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cadastro'
+    | '/concursos'
+    | '/conteudos'
+    | '/curriculo'
+    | '/cursos'
+    | '/entrar'
+    | '/estagio'
+    | '/sobre'
+    | '/vagas'
+  id:
+    | '__root__'
+    | '/'
+    | '/cadastro'
+    | '/concursos'
+    | '/conteudos'
+    | '/curriculo'
+    | '/cursos'
+    | '/entrar'
+    | '/estagio'
+    | '/sobre'
+    | '/vagas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CadastroRoute: typeof CadastroRoute
+  ConcursosRoute: typeof ConcursosRoute
+  ConteudosRoute: typeof ConteudosRoute
+  CurriculoRoute: typeof CurriculoRoute
+  CursosRoute: typeof CursosRoute
+  EntrarRoute: typeof EntrarRoute
+  EstagioRoute: typeof EstagioRoute
+  SobreRoute: typeof SobreRoute
+  VagasRoute: typeof VagasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/concursos': {
+      id: '/concursos'
+      path: '/concursos'
+      fullPath: '/concursos'
+      preLoaderRoute: typeof ConcursosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conteudos': {
+      id: '/conteudos'
+      path: '/conteudos'
+      fullPath: '/conteudos'
+      preLoaderRoute: typeof ConteudosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/curriculo': {
+      id: '/curriculo'
+      path: '/curriculo'
+      fullPath: '/curriculo'
+      preLoaderRoute: typeof CurriculoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cursos': {
+      id: '/cursos'
+      path: '/cursos'
+      fullPath: '/cursos'
+      preLoaderRoute: typeof CursosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estagio': {
+      id: '/estagio'
+      path: '/estagio'
+      fullPath: '/estagio'
+      preLoaderRoute: typeof EstagioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vagas': {
+      id: '/vagas'
+      path: '/vagas'
+      fullPath: '/vagas'
+      preLoaderRoute: typeof VagasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CadastroRoute: CadastroRoute,
+  ConcursosRoute: ConcursosRoute,
+  ConteudosRoute: ConteudosRoute,
+  CurriculoRoute: CurriculoRoute,
+  CursosRoute: CursosRoute,
+  EntrarRoute: EntrarRoute,
+  EstagioRoute: EstagioRoute,
+  SobreRoute: SobreRoute,
+  VagasRoute: VagasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
