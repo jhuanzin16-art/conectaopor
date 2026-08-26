@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_courses: {
+        Row: {
+          course_id: string
+          course_name: string
+          created_at: string
+          id: string
+          instituicao: string | null
+          status: Database["public"]["Enums"]["course_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          course_name: string
+          created_at?: string
+          id?: string
+          instituicao?: string | null
+          status?: Database["public"]["Enums"]["course_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          course_name?: string
+          created_at?: string
+          id?: string
+          instituicao?: string | null
+          status?: Database["public"]["Enums"]["course_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +79,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      course_status: "salvo" | "iniciado" | "concluido"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +206,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      course_status: ["salvo", "iniciado", "concluido"],
+    },
   },
 } as const
