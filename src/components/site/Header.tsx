@@ -16,6 +16,18 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { session, nome, signOut } = useAuth();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function sair() {
+    setOpen(false);
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await signOut();
+    navigate({ to: "/entrar", replace: true });
+  }
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
