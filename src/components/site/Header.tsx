@@ -111,20 +111,40 @@ export function Header() {
             ))}
           </nav>
           <div className="mt-3 flex gap-2">
-            <Link
-              to="/entrar"
-              onClick={() => setOpen(false)}
-              className="flex-1 rounded-full border border-primary px-4 py-2 text-center text-sm font-bold text-primary"
-            >
-              Entrar
-            </Link>
-            <Link
-              to="/cadastro"
-              onClick={() => setOpen(false)}
-              className="flex-1 rounded-full bg-primary px-4 py-2 text-center text-sm font-bold text-primary-foreground"
-            >
-              Cadastre-se
-            </Link>
+            {session ? (
+              <>
+                <Link
+                  to="/painel"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full bg-primary px-4 py-2 text-center text-sm font-bold text-primary-foreground"
+                >
+                  Minha área
+                </Link>
+                <button
+                  onClick={sair}
+                  className="flex-1 rounded-full border border-primary px-4 py-2 text-center text-sm font-bold text-primary"
+                >
+                  Sair
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/entrar"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full border border-primary px-4 py-2 text-center text-sm font-bold text-primary"
+                >
+                  Entrar
+                </Link>
+                <Link
+                  to="/cadastro"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full bg-primary px-4 py-2 text-center text-sm font-bold text-primary-foreground"
+                >
+                  Cadastre-se
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
