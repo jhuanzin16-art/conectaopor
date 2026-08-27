@@ -1,8 +1,55 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Search, Award } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
-import { categorias, cursos } from "@/lib/site-data";
+import { categorias, cursos, type Curso } from "@/lib/site-data";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+
+function BotaoSalvar({ curso }: { curso: Curso }) {
+  const { session } = useAuth();
+  const [estado, setEstado] = useState<"idle" | "salvando" | "salvo" | "erro">("idle");
+
+  if (!session) {
+    return (
+      <Link
+        to="/entrar"
+        className="mt-6 rounded-full bg-primary py-2.5 text-center text-sm font-bold text-primary-foreground"
+      >
+        Entrar para salvar
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      disabled={estado === "salvando" || estado === "salvo"}
+      onClick={async () => {
+        setEstado("salvando");
+        const { error } = await supabase.from("user_courses").upsert(
+          {
+            user_id: session.user.id,
+            course_id: curso.id,
+            course_name: curso.nome,
+            instituicao: curso.instituicao,
+            status: "salvo" as const,
+          },
+          { onConflict: "user_id,course_id" },
+        );
+        setEstado(error ? "erro" : "salvo");
+      }}
+      className="mt-6 rounded-full bg-primary py-2.5 text-sm font-bold text-primary-foreground disabled:opacity-70"
+    >
+      {estado === "salvo"
+        ? "Salvo na sua área ✓"
+        : estado === "salvando"
+          ? "Salvando..."
+          : estado === "erro"
+            ? "Erro, tentar de novo"
+            : "Salvar curso"}
+    </button>
+  );
+}
 
 export const Route = createFileRoute("/cursos")({
   head: () => ({
