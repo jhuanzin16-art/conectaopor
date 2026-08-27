@@ -1,8 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Campo } from "./entrar";
 
 export const Route = createFileRoute("/cadastro")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "Criar conta gratuita | Conecta Oportunidades" },
@@ -23,6 +25,53 @@ export const Route = createFileRoute("/cadastro")({
 
 function CadastroPage() {
   const [erro, setErro] = useState("");
+  const [sucesso, setSucesso] = useState("");
+  const [carregando, setCarregando] = useState(false);
+  const navigate = useNavigate();
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setErro("");
+    setSucesso("");
+    const form = new FormData(e.currentTarget);
+    const nome = String(form.get("nome") ?? "").trim();
+    const email = String(form.get("email") ?? "").trim();
+    const senha = String(form.get("senha") ?? "");
+    const confirmar = String(form.get("confirmar") ?? "");
+
+    if (nome.length < 3) return setErro("Informe seu nome completo.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return setErro("Informe um e-mail válido.");
+    if (senha.length < 6) return setErro("A senha deve ter pelo menos 6 caracteres.");
+    if (senha !== confirmar) return setErro("As senhas não conferem.");
+
+    setCarregando(true);
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password: senha,
+      options: {
+        emailRedirectTo: `${window.location.origin}/painel`,
+        data: { full_name: nome },
+      },
+    });
+    setCarregando(false);
+
+    if (error) {
+      setErro(
+        error.message.toLowerCase().includes("already")
+          ? "Este e-mail já está cadastrado. Faça login."
+          : "Não foi possível criar a conta. Tente novamente.",
+      );
+      return;
+    }
+
+    if (data.session) {
+      setSucesso("Conta criada com sucesso! Redirecionando...");
+      navigate({ to: "/painel", replace: true });
+      return;
+    }
+
+    setSucesso("Conta criada! Confirme seu e-mail para acessar sua área pessoal.");
+  }
 
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 py-16 sm:px-6">
@@ -31,26 +80,19 @@ function CadastroPage() {
         É gratuito e leva menos de um minuto.
       </p>
 
-      <form
-        className="mt-8 space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const form = new FormData(e.currentTarget);
-          if (form.get("senha") !== form.get("confirmar")) {
-            setErro("As senhas não conferem.");
-            return;
-          }
-          setErro("Cadastro será ativado quando o banco de dados for conectado.");
-        }}
-      >
-        <Campo label="Nome completo" name="nome" placeholder="Seu nome" />
+      <form className="mt-8 space-y-4" onSubmit={onSubmit}>
+        <Campo label="Nome completo" name="nome" placeholder="Seu nome" maxLength={100} />
         <Campo label="E-mail" type="email" name="email" placeholder="voce@email.com" />
         <Campo label="Senha" type="password" name="senha" placeholder="••••••••" />
         <Campo label="Confirmar senha" type="password" name="confirmar" placeholder="••••••••" />
-        <button className="w-full rounded-full bg-primary py-3 text-sm font-bold uppercase text-primary-foreground shadow-soft">
-          Criar conta
+        <button
+          disabled={carregando}
+          className="w-full rounded-full bg-primary py-3 text-sm font-bold uppercase text-primary-foreground shadow-soft disabled:opacity-60"
+        >
+          {carregando ? "Criando..." : "Criar conta"}
         </button>
-        {erro && <p className="text-center text-xs text-primary">{erro}</p>}
+        {erro && <p className="text-center text-xs text-destructive">{erro}</p>}
+        {sucesso && <p className="text-center text-xs text-primary">{sucesso}</p>}
       </form>
 
       <p className="mt-8 text-center text-sm text-muted-foreground">
