@@ -18,6 +18,7 @@ import { Route as CurriculoRouteImport } from './routes/curriculo'
 import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as EstagioRouteImport } from './routes/estagio'
+import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VagasRouteImport } from './routes/vagas'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
@@ -66,6 +67,11 @@ const EstagioRoute = EstagioRouteImport.update({
   path: '/estagio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RedefinirSenhaRoute = RedefinirSenhaRouteImport.update({
+  id: '/redefinir-senha',
+  path: '/redefinir-senha',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/cursos': typeof CursosRoute
   '/entrar': typeof EntrarRoute
   '/estagio': typeof EstagioRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
   '/painel': typeof AuthenticatedPainelRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/cursos': typeof CursosRoute
   '/entrar': typeof EntrarRoute
   '/estagio': typeof EstagioRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
   '/painel': typeof AuthenticatedPainelRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/cursos': typeof CursosRoute
   '/entrar': typeof EntrarRoute
   '/estagio': typeof EstagioRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/cursos'
     | '/entrar'
     | '/estagio'
+    | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
     | '/painel'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/cursos'
     | '/entrar'
     | '/estagio'
+    | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
     | '/painel'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/cursos'
     | '/entrar'
     | '/estagio'
+    | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
     | '/_authenticated/painel'
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   CursosRoute: typeof CursosRoute
   EntrarRoute: typeof EntrarRoute
   EstagioRoute: typeof EstagioRoute
+  RedefinirSenhaRoute: typeof RedefinirSenhaRoute
   SobreRoute: typeof SobreRoute
   VagasRoute: typeof VagasRoute
 }
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EstagioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/redefinir-senha': {
+      id: '/redefinir-senha'
+      path: '/redefinir-senha'
+      fullPath: '/redefinir-senha'
+      preLoaderRoute: typeof RedefinirSenhaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -290,6 +310,7 @@ const rootRouteChildren: RootRouteChildren = {
   CursosRoute: CursosRoute,
   EntrarRoute: EntrarRoute,
   EstagioRoute: EstagioRoute,
+  RedefinirSenhaRoute: RedefinirSenhaRoute,
   SobreRoute: SobreRoute,
   VagasRoute: VagasRoute,
 }

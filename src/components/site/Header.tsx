@@ -1,6 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const links = [
   { to: "/", label: "Início" },
@@ -14,6 +16,18 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { session, nome, signOut } = useAuth();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function sair() {
+    setOpen(false);
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await signOut();
+    navigate({ to: "/entrar", replace: true });
+  }
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
@@ -38,18 +52,38 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Link
-            to="/entrar"
-            className="rounded-full px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary-soft"
-          >
-            Entrar
-          </Link>
-          <Link
-            to="/cadastro"
-            className="rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
-          >
-            Cadastre-se
-          </Link>
+          {session ? (
+            <>
+              <Link
+                to="/painel"
+                className="flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-soft"
+              >
+                <LayoutDashboard className="size-4" />
+                {nome ? `Olá, ${nome.split(" ")[0]}` : "Minha área"}
+              </Link>
+              <button
+                onClick={sair}
+                className="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary-soft"
+              >
+                <LogOut className="size-4" /> Sair
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/entrar"
+                className="rounded-full px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary-soft"
+              >
+                Entrar
+              </Link>
+              <Link
+                to="/cadastro"
+                className="rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
+              >
+                Cadastre-se
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -77,20 +111,40 @@ export function Header() {
             ))}
           </nav>
           <div className="mt-3 flex gap-2">
-            <Link
-              to="/entrar"
-              onClick={() => setOpen(false)}
-              className="flex-1 rounded-full border border-primary px-4 py-2 text-center text-sm font-bold text-primary"
-            >
-              Entrar
-            </Link>
-            <Link
-              to="/cadastro"
-              onClick={() => setOpen(false)}
-              className="flex-1 rounded-full bg-primary px-4 py-2 text-center text-sm font-bold text-primary-foreground"
-            >
-              Cadastre-se
-            </Link>
+            {session ? (
+              <>
+                <Link
+                  to="/painel"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full bg-primary px-4 py-2 text-center text-sm font-bold text-primary-foreground"
+                >
+                  Minha área
+                </Link>
+                <button
+                  onClick={sair}
+                  className="flex-1 rounded-full border border-primary px-4 py-2 text-center text-sm font-bold text-primary"
+                >
+                  Sair
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/entrar"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full border border-primary px-4 py-2 text-center text-sm font-bold text-primary"
+                >
+                  Entrar
+                </Link>
+                <Link
+                  to="/cadastro"
+                  onClick={() => setOpen(false)}
+                  className="flex-1 rounded-full bg-primary px-4 py-2 text-center text-sm font-bold text-primary-foreground"
+                >
+                  Cadastre-se
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
