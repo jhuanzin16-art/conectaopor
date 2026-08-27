@@ -52,18 +52,38 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Link
-            to="/entrar"
-            className="rounded-full px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary-soft"
-          >
-            Entrar
-          </Link>
-          <Link
-            to="/cadastro"
-            className="rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
-          >
-            Cadastre-se
-          </Link>
+          {session ? (
+            <>
+              <Link
+                to="/painel"
+                className="flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-soft"
+              >
+                <LayoutDashboard className="size-4" />
+                {nome ? `Olá, ${nome.split(" ")[0]}` : "Minha área"}
+              </Link>
+              <button
+                onClick={sair}
+                className="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary-soft"
+              >
+                <LogOut className="size-4" /> Sair
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/entrar"
+                className="rounded-full px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary-soft"
+              >
+                Entrar
+              </Link>
+              <Link
+                to="/cadastro"
+                className="rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
+              >
+                Cadastre-se
+              </Link>
+            </>
+          )}
         </div>
 
         <button
