@@ -97,9 +97,7 @@ function CursosPage() {
               <p className="mt-1 text-sm text-muted-foreground">
                 {c.instituicao} • {c.duracao}
               </p>
-              <button className="mt-6 rounded-full bg-primary py-2.5 text-sm font-bold text-primary-foreground">
-                Ver curso
-              </button>
+              <BotaoSalvar curso={c} />
             </article>
           ))}
           {lista.length === 0 && (
