@@ -56,10 +56,15 @@ function CadastroPage() {
     setCarregando(false);
 
     if (error) {
+      const m = error.message.toLowerCase();
       setErro(
-        error.message.toLowerCase().includes("already")
+        m.includes("already") || m.includes("registered")
           ? "Este e-mail já está cadastrado. Faça login."
-          : "Não foi possível criar a conta. Tente novamente.",
+          : m.includes("pwned") || m.includes("weak") || m.includes("password")
+            ? "Essa senha é muito fraca ou já apareceu em vazamentos. Escolha outra senha."
+            : m.includes("email")
+              ? "E-mail inválido. Use um endereço de e-mail válido."
+              : "Não foi possível criar a conta. Tente novamente.",
       );
       return;
     }
