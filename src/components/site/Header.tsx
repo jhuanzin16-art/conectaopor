@@ -16,7 +16,7 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const { session, nome, signOut } = useAuth();
+  const { session, nome, signOut, loading } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -52,7 +52,7 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          {session ? (
+          {loading ? null : session ? (
             <>
               <Link
                 to="/painel"
@@ -111,7 +111,7 @@ export function Header() {
             ))}
           </nav>
           <div className="mt-3 flex gap-2">
-            {session ? (
+            {loading ? null : session ? (
               <>
                 <Link
                   to="/painel"
