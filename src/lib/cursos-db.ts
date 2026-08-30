@@ -56,14 +56,3 @@ export function slugify(texto: string) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
-
-export function BarraProgresso({ valor }: { valor: number }) {
-  return (
-    <div className="h-2.5 w-full overflow-hidden rounded-full bg-muted">
-      <div
-        className="h-full rounded-full bg-primary transition-all"
-        style={{ width: `${Math.min(100, Math.max(0, valor))}%` }}
-      />
-    </div>
-  );
-}
