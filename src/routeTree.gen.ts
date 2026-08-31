@@ -21,6 +21,7 @@ import { Route as EstagioRouteImport } from './routes/estagio'
 import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VagasRouteImport } from './routes/vagas'
+import { Route as AuthenticatedCertificadosRouteImport } from './routes/_authenticated/certificados'
 import { Route as AuthenticatedMeusCursosRouteImport } from './routes/_authenticated/meus-cursos'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
 import { Route as CursoSlugRouteImport } from './routes/curso.$slug'
@@ -84,6 +85,12 @@ const VagasRoute = VagasRouteImport.update({
   path: '/vagas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedCertificadosRoute =
+  AuthenticatedCertificadosRouteImport.update({
+    id: '/certificados',
+    path: '/certificados',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMeusCursosRoute = AuthenticatedMeusCursosRouteImport.update({
   id: '/meus-cursos',
   path: '/meus-cursos',
@@ -112,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/certificados': typeof AuthenticatedCertificadosRoute
   '/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/painel': typeof AuthenticatedPainelRoute
   '/curso/$slug': typeof CursoSlugRoute
@@ -128,6 +136,7 @@ export interface FileRoutesByTo {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/certificados': typeof AuthenticatedCertificadosRoute
   '/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/painel': typeof AuthenticatedPainelRoute
   '/curso/$slug': typeof CursoSlugRoute
@@ -146,6 +155,7 @@ export interface FileRoutesById {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/_authenticated/certificados': typeof AuthenticatedCertificadosRoute
   '/_authenticated/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
   '/curso/$slug': typeof CursoSlugRoute
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
+    | '/certificados'
     | '/meus-cursos'
     | '/painel'
     | '/curso/$slug'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
+    | '/certificados'
     | '/meus-cursos'
     | '/painel'
     | '/curso/$slug'
@@ -197,6 +209,7 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
+    | '/_authenticated/certificados'
     | '/_authenticated/meus-cursos'
     | '/_authenticated/painel'
     | '/curso/$slug'
@@ -304,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VagasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/certificados': {
+      id: '/_authenticated/certificados'
+      path: '/certificados'
+      fullPath: '/certificados'
+      preLoaderRoute: typeof AuthenticatedCertificadosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/meus-cursos': {
       id: '/_authenticated/meus-cursos'
       path: '/meus-cursos'
@@ -329,11 +349,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCertificadosRoute: typeof AuthenticatedCertificadosRoute
   AuthenticatedMeusCursosRoute: typeof AuthenticatedMeusCursosRoute
   AuthenticatedPainelRoute: typeof AuthenticatedPainelRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCertificadosRoute: AuthenticatedCertificadosRoute,
   AuthenticatedMeusCursosRoute: AuthenticatedMeusCursosRoute,
   AuthenticatedPainelRoute: AuthenticatedPainelRoute,
 }
