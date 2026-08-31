@@ -21,8 +21,15 @@ import { Route as EstagioRouteImport } from './routes/estagio'
 import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VagasRouteImport } from './routes/vagas'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedCertificadosRouteImport } from './routes/_authenticated/certificados'
+import { Route as AuthenticatedMeusCursosRouteImport } from './routes/_authenticated/meus-cursos'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
+import { Route as CertificadoCodigoRouteImport } from './routes/certificado.$codigo'
 import { Route as CursoSlugRouteImport } from './routes/curso.$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
+import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -83,16 +90,54 @@ const VagasRoute = VagasRouteImport.update({
   path: '/vagas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCertificadosRoute =
+  AuthenticatedCertificadosRouteImport.update({
+    id: '/certificados',
+    path: '/certificados',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMeusCursosRoute = AuthenticatedMeusCursosRouteImport.update({
+  id: '/meus-cursos',
+  path: '/meus-cursos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPainelRoute = AuthenticatedPainelRouteImport.update({
   id: '/painel',
   path: '/painel',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const CertificadoCodigoRoute = CertificadoCodigoRouteImport.update({
+  id: '/certificado/$codigo',
+  path: '/certificado/$codigo',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CursoSlugRoute = CursoSlugRouteImport.update({
   id: '/curso/$slug',
   path: '/curso/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminCursosRoute =
+  AuthenticatedAdminCursosRouteImport.update({
+    id: '/cursos',
+    path: '/cursos',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminUsuariosRoute =
+  AuthenticatedAdminUsuariosRouteImport.update({
+    id: '/usuarios',
+    path: '/usuarios',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -106,8 +151,15 @@ export interface FileRoutesByFullPath {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/certificados': typeof AuthenticatedCertificadosRoute
+  '/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/painel': typeof AuthenticatedPainelRoute
+  '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
+  '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -121,8 +173,14 @@ export interface FileRoutesByTo {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/certificados': typeof AuthenticatedCertificadosRoute
+  '/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/painel': typeof AuthenticatedPainelRoute
+  '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
+  '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -138,8 +196,15 @@ export interface FileRoutesById {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/sobre': typeof SobreRoute
   '/vagas': typeof VagasRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/certificados': typeof AuthenticatedCertificadosRoute
+  '/_authenticated/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
+  '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
+  '/_authenticated/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -155,8 +220,15 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
+    | '/admin'
+    | '/certificados'
+    | '/meus-cursos'
     | '/painel'
+    | '/certificado/$codigo'
     | '/curso/$slug'
+    | '/admin/cursos'
+    | '/admin/usuarios'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -170,8 +242,14 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
+    | '/certificados'
+    | '/meus-cursos'
     | '/painel'
+    | '/certificado/$codigo'
     | '/curso/$slug'
+    | '/admin/cursos'
+    | '/admin/usuarios'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -186,8 +264,15 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/sobre'
     | '/vagas'
+    | '/_authenticated/admin'
+    | '/_authenticated/certificados'
+    | '/_authenticated/meus-cursos'
     | '/_authenticated/painel'
+    | '/certificado/$codigo'
     | '/curso/$slug'
+    | '/_authenticated/admin/cursos'
+    | '/_authenticated/admin/usuarios'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -203,6 +288,7 @@ export interface RootRouteChildren {
   RedefinirSenhaRoute: typeof RedefinirSenhaRoute
   SobreRoute: typeof SobreRoute
   VagasRoute: typeof VagasRoute
+  CertificadoCodigoRoute: typeof CertificadoCodigoRoute
   CursoSlugRoute: typeof CursoSlugRoute
 }
 
@@ -292,12 +378,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VagasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/certificados': {
+      id: '/_authenticated/certificados'
+      path: '/certificados'
+      fullPath: '/certificados'
+      preLoaderRoute: typeof AuthenticatedCertificadosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/meus-cursos': {
+      id: '/_authenticated/meus-cursos'
+      path: '/meus-cursos'
+      fullPath: '/meus-cursos'
+      preLoaderRoute: typeof AuthenticatedMeusCursosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/painel': {
       id: '/_authenticated/painel'
       path: '/painel'
       fullPath: '/painel'
       preLoaderRoute: typeof AuthenticatedPainelRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/certificado/$codigo': {
+      id: '/certificado/$codigo'
+      path: '/certificado/$codigo'
+      fullPath: '/certificado/$codigo'
+      preLoaderRoute: typeof CertificadoCodigoRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/curso/$slug': {
       id: '/curso/$slug'
@@ -306,14 +420,56 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CursoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/cursos': {
+      id: '/_authenticated/admin/cursos'
+      path: '/cursos'
+      fullPath: '/admin/cursos'
+      preLoaderRoute: typeof AuthenticatedAdminCursosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/usuarios': {
+      id: '/_authenticated/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminCursosRoute: typeof AuthenticatedAdminCursosRoute
+  AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminCursosRoute: AuthenticatedAdminCursosRoute,
+  AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedCertificadosRoute: typeof AuthenticatedCertificadosRoute
+  AuthenticatedMeusCursosRoute: typeof AuthenticatedMeusCursosRoute
   AuthenticatedPainelRoute: typeof AuthenticatedPainelRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedCertificadosRoute: AuthenticatedCertificadosRoute,
+  AuthenticatedMeusCursosRoute: AuthenticatedMeusCursosRoute,
   AuthenticatedPainelRoute: AuthenticatedPainelRoute,
 }
 
@@ -333,6 +489,7 @@ const rootRouteChildren: RootRouteChildren = {
   RedefinirSenhaRoute: RedefinirSenhaRoute,
   SobreRoute: SobreRoute,
   VagasRoute: VagasRoute,
+  CertificadoCodigoRoute: CertificadoCodigoRoute,
   CursoSlugRoute: CursoSlugRoute,
 }
 export const routeTree = rootRouteImport
