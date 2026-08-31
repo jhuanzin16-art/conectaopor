@@ -24,6 +24,7 @@ import { Route as VagasRouteImport } from './routes/vagas'
 import { Route as AuthenticatedCertificadosRouteImport } from './routes/_authenticated/certificados'
 import { Route as AuthenticatedMeusCursosRouteImport } from './routes/_authenticated/meus-cursos'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
+import { Route as CertificadoCodigoRouteImport } from './routes/certificado.$codigo'
 import { Route as CursoSlugRouteImport } from './routes/curso.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -101,6 +102,11 @@ const AuthenticatedPainelRoute = AuthenticatedPainelRouteImport.update({
   path: '/painel',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const CertificadoCodigoRoute = CertificadoCodigoRouteImport.update({
+  id: '/certificado/$codigo',
+  path: '/certificado/$codigo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CursoSlugRoute = CursoSlugRouteImport.update({
   id: '/curso/$slug',
   path: '/curso/$slug',
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/certificados': typeof AuthenticatedCertificadosRoute
   '/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/painel': typeof AuthenticatedPainelRoute
+  '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
 }
 export interface FileRoutesByTo {
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/certificados': typeof AuthenticatedCertificadosRoute
   '/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/painel': typeof AuthenticatedPainelRoute
+  '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
 }
 export interface FileRoutesById {
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/_authenticated/certificados': typeof AuthenticatedCertificadosRoute
   '/_authenticated/meus-cursos': typeof AuthenticatedMeusCursosRoute
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
+  '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
 }
 export interface FileRouteTypes {
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/certificados'
     | '/meus-cursos'
     | '/painel'
+    | '/certificado/$codigo'
     | '/curso/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/certificados'
     | '/meus-cursos'
     | '/painel'
+    | '/certificado/$codigo'
     | '/curso/$slug'
   id:
     | '__root__'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/_authenticated/certificados'
     | '/_authenticated/meus-cursos'
     | '/_authenticated/painel'
+    | '/certificado/$codigo'
     | '/curso/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   RedefinirSenhaRoute: typeof RedefinirSenhaRoute
   SobreRoute: typeof SobreRoute
   VagasRoute: typeof VagasRoute
+  CertificadoCodigoRoute: typeof CertificadoCodigoRoute
   CursoSlugRoute: typeof CursoSlugRoute
 }
 
@@ -338,6 +351,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPainelRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/certificado/$codigo': {
+      id: '/certificado/$codigo'
+      path: '/certificado/$codigo'
+      fullPath: '/certificado/$codigo'
+      preLoaderRoute: typeof CertificadoCodigoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/curso/$slug': {
       id: '/curso/$slug'
       path: '/curso/$slug'
@@ -376,6 +396,7 @@ const rootRouteChildren: RootRouteChildren = {
   RedefinirSenhaRoute: RedefinirSenhaRoute,
   SobreRoute: SobreRoute,
   VagasRoute: VagasRoute,
+  CertificadoCodigoRoute: CertificadoCodigoRoute,
   CursoSlugRoute: CursoSlugRoute,
 }
 export const routeTree = rootRouteImport
