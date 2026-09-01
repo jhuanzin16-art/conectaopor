@@ -28,6 +28,7 @@ import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated
 import { Route as CertificadoCodigoRouteImport } from './routes/certificado.$codigo'
 import { Route as CursoSlugRouteImport } from './routes/curso.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminAdministradoresRouteImport } from './routes/_authenticated/admin/administradores'
 import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
 import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
 import { Route as AuthenticatedAdminCursoIdRouteImport } from './routes/_authenticated/admin/curso.$id'
@@ -127,6 +128,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminAdministradoresRoute =
+  AuthenticatedAdminAdministradoresRouteImport.update({
+    id: '/administradores',
+    path: '/administradores',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCursosRoute =
   AuthenticatedAdminCursosRouteImport.update({
     id: '/cursos',
@@ -164,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/painel': typeof AuthenticatedPainelRoute
   '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
+  '/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -186,6 +194,7 @@ export interface FileRoutesByTo {
   '/painel': typeof AuthenticatedPainelRoute
   '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
+  '/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -211,6 +220,7 @@ export interface FileRoutesById {
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
   '/certificado/$codigo': typeof CertificadoCodigoRoute
   '/curso/$slug': typeof CursoSlugRoute
+  '/_authenticated/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/_authenticated/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -236,6 +246,7 @@ export interface FileRouteTypes {
     | '/painel'
     | '/certificado/$codigo'
     | '/curso/$slug'
+    | '/admin/administradores'
     | '/admin/cursos'
     | '/admin/usuarios'
     | '/admin/'
@@ -258,6 +269,7 @@ export interface FileRouteTypes {
     | '/painel'
     | '/certificado/$codigo'
     | '/curso/$slug'
+    | '/admin/administradores'
     | '/admin/cursos'
     | '/admin/usuarios'
     | '/admin'
@@ -282,6 +294,7 @@ export interface FileRouteTypes {
     | '/_authenticated/painel'
     | '/certificado/$codigo'
     | '/curso/$slug'
+    | '/_authenticated/admin/administradores'
     | '/_authenticated/admin/cursos'
     | '/_authenticated/admin/usuarios'
     | '/_authenticated/admin/'
@@ -440,6 +453,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/administradores': {
+      id: '/_authenticated/admin/administradores'
+      path: '/administradores'
+      fullPath: '/admin/administradores'
+      preLoaderRoute: typeof AuthenticatedAdminAdministradoresRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/cursos': {
       id: '/_authenticated/admin/cursos'
       path: '/cursos'
@@ -465,6 +485,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAdministradoresRoute: typeof AuthenticatedAdminAdministradoresRoute
   AuthenticatedAdminCursosRoute: typeof AuthenticatedAdminCursosRoute
   AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -472,6 +493,8 @@ interface AuthenticatedAdminRouteChildren {
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAdministradoresRoute:
+    AuthenticatedAdminAdministradoresRoute,
   AuthenticatedAdminCursosRoute: AuthenticatedAdminCursosRoute,
   AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
