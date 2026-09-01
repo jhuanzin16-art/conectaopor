@@ -72,7 +72,7 @@ function Chip({
   );
 }
 
-function CardCurso({ curso, categoria }: { curso: CursoDB; categoria?: string }) {
+function CardCurso({ curso, categoria }: { curso: CursoDB; categoria?: string | undefined }) {
   return (
     <article className="flex flex-col rounded-3xl border border-border bg-card p-6 transition-transform hover:-translate-y-1">
       <div className="flex flex-wrap items-start justify-between gap-2">

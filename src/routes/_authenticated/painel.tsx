@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { BookmarkCheck, PlayCircle, CheckCircle2, User, LogOut, Mail } from "lucide-react";
@@ -126,7 +126,29 @@ function PainelPage() {
         </button>
       </div>
 
+      <nav className="mt-6 flex flex-wrap gap-2">
+        <Link
+          to="/cursos"
+          className="rounded-full border border-border bg-card px-4 py-2 text-xs font-bold uppercase text-muted-foreground hover:border-primary hover:text-primary"
+        >
+          Cursos
+        </Link>
+        <Link
+          to="/meus-cursos"
+          className="rounded-full border border-border bg-card px-4 py-2 text-xs font-bold uppercase text-muted-foreground hover:border-primary hover:text-primary"
+        >
+          Meus cursos e progresso
+        </Link>
+        <Link
+          to="/certificados"
+          className="rounded-full border border-border bg-card px-4 py-2 text-xs font-bold uppercase text-muted-foreground hover:border-primary hover:text-primary"
+        >
+          Meus certificados
+        </Link>
+      </nav>
+
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
+
         {grupos.map((g) => (
           <div key={g.key} className="rounded-3xl border border-border bg-card p-6">
             <g.icon className="size-5 text-primary" />
