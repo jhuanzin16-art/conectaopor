@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Menu, X, LayoutDashboard, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useRoles } from "@/lib/roles";
+
 
 const links = [
   { to: "/", label: "Início" },
