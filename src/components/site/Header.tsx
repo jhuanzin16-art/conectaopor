@@ -54,6 +54,15 @@ export function Header() {
         <div className="hidden items-center gap-2 md:flex">
           {loading ? null : session ? (
             <>
+              {isStaff && (
+                <Link
+                  to="/admin"
+                  className="rounded-full px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary-soft"
+                >
+                  Admin
+                </Link>
+              )}
+
               <Link
                 to="/painel"
                 className="flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground shadow-soft"
