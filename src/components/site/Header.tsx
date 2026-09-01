@@ -17,6 +17,8 @@ const links = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const { session, nome, signOut, loading } = useAuth();
+  const { isStaff } = useRoles();
+
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
