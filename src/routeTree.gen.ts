@@ -30,8 +30,13 @@ import { Route as CursoSlugRouteImport } from './routes/curso.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminAdministradoresRouteImport } from './routes/_authenticated/admin/administradores'
 import { Route as AuthenticatedAdminCategoriasRouteImport } from './routes/_authenticated/admin/categorias'
+import { Route as AuthenticatedAdminCertificadosRouteImport } from './routes/_authenticated/admin/certificados'
+import { Route as AuthenticatedAdminConcursosRouteImport } from './routes/_authenticated/admin/concursos'
 import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
+import { Route as AuthenticatedAdminEstagiosRouteImport } from './routes/_authenticated/admin/estagios'
+import { Route as AuthenticatedAdminMidiaRouteImport } from './routes/_authenticated/admin/midia'
 import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
+import { Route as AuthenticatedAdminVagasRouteImport } from './routes/_authenticated/admin/vagas'
 import { Route as AuthenticatedAdminCursoIdRouteImport } from './routes/_authenticated/admin/curso.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -141,18 +146,46 @@ const AuthenticatedAdminCategoriasRoute =
     path: '/categorias',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminCertificadosRoute =
+  AuthenticatedAdminCertificadosRouteImport.update({
+    id: '/certificados',
+    path: '/certificados',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminConcursosRoute =
+  AuthenticatedAdminConcursosRouteImport.update({
+    id: '/concursos',
+    path: '/concursos',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCursosRoute =
   AuthenticatedAdminCursosRouteImport.update({
     id: '/cursos',
     path: '/cursos',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminEstagiosRoute =
+  AuthenticatedAdminEstagiosRouteImport.update({
+    id: '/estagios',
+    path: '/estagios',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminMidiaRoute = AuthenticatedAdminMidiaRouteImport.update({
+  id: '/midia',
+  path: '/midia',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminUsuariosRoute =
   AuthenticatedAdminUsuariosRouteImport.update({
     id: '/usuarios',
     path: '/usuarios',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminVagasRoute = AuthenticatedAdminVagasRouteImport.update({
+  id: '/vagas',
+  path: '/vagas',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminCursoIdRoute =
   AuthenticatedAdminCursoIdRouteImport.update({
     id: '/curso/$id',
@@ -180,8 +213,13 @@ export interface FileRoutesByFullPath {
   '/curso/$slug': typeof CursoSlugRoute
   '/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
+  '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
+  '/admin/concursos': typeof AuthenticatedAdminConcursosRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/estagios': typeof AuthenticatedAdminEstagiosRoute
+  '/admin/midia': typeof AuthenticatedAdminMidiaRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/admin/vagas': typeof AuthenticatedAdminVagasRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/curso/$id': typeof AuthenticatedAdminCursoIdRoute
 }
@@ -204,8 +242,13 @@ export interface FileRoutesByTo {
   '/curso/$slug': typeof CursoSlugRoute
   '/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
+  '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
+  '/admin/concursos': typeof AuthenticatedAdminConcursosRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/estagios': typeof AuthenticatedAdminEstagiosRoute
+  '/admin/midia': typeof AuthenticatedAdminMidiaRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/admin/vagas': typeof AuthenticatedAdminVagasRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/curso/$id': typeof AuthenticatedAdminCursoIdRoute
 }
@@ -231,8 +274,13 @@ export interface FileRoutesById {
   '/curso/$slug': typeof CursoSlugRoute
   '/_authenticated/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/_authenticated/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
+  '/_authenticated/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
+  '/_authenticated/admin/concursos': typeof AuthenticatedAdminConcursosRoute
   '/_authenticated/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/_authenticated/admin/estagios': typeof AuthenticatedAdminEstagiosRoute
+  '/_authenticated/admin/midia': typeof AuthenticatedAdminMidiaRoute
   '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/_authenticated/admin/vagas': typeof AuthenticatedAdminVagasRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/curso/$id': typeof AuthenticatedAdminCursoIdRoute
 }
@@ -258,8 +306,13 @@ export interface FileRouteTypes {
     | '/curso/$slug'
     | '/admin/administradores'
     | '/admin/categorias'
+    | '/admin/certificados'
+    | '/admin/concursos'
     | '/admin/cursos'
+    | '/admin/estagios'
+    | '/admin/midia'
     | '/admin/usuarios'
+    | '/admin/vagas'
     | '/admin/'
     | '/admin/curso/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -282,8 +335,13 @@ export interface FileRouteTypes {
     | '/curso/$slug'
     | '/admin/administradores'
     | '/admin/categorias'
+    | '/admin/certificados'
+    | '/admin/concursos'
     | '/admin/cursos'
+    | '/admin/estagios'
+    | '/admin/midia'
     | '/admin/usuarios'
+    | '/admin/vagas'
     | '/admin'
     | '/admin/curso/$id'
   id:
@@ -308,8 +366,13 @@ export interface FileRouteTypes {
     | '/curso/$slug'
     | '/_authenticated/admin/administradores'
     | '/_authenticated/admin/categorias'
+    | '/_authenticated/admin/certificados'
+    | '/_authenticated/admin/concursos'
     | '/_authenticated/admin/cursos'
+    | '/_authenticated/admin/estagios'
+    | '/_authenticated/admin/midia'
     | '/_authenticated/admin/usuarios'
+    | '/_authenticated/admin/vagas'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/curso/$id'
   fileRoutesById: FileRoutesById
@@ -480,6 +543,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCategoriasRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/certificados': {
+      id: '/_authenticated/admin/certificados'
+      path: '/certificados'
+      fullPath: '/admin/certificados'
+      preLoaderRoute: typeof AuthenticatedAdminCertificadosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/concursos': {
+      id: '/_authenticated/admin/concursos'
+      path: '/concursos'
+      fullPath: '/admin/concursos'
+      preLoaderRoute: typeof AuthenticatedAdminConcursosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/cursos': {
       id: '/_authenticated/admin/cursos'
       path: '/cursos'
@@ -487,11 +564,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCursosRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/estagios': {
+      id: '/_authenticated/admin/estagios'
+      path: '/estagios'
+      fullPath: '/admin/estagios'
+      preLoaderRoute: typeof AuthenticatedAdminEstagiosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/midia': {
+      id: '/_authenticated/admin/midia'
+      path: '/midia'
+      fullPath: '/admin/midia'
+      preLoaderRoute: typeof AuthenticatedAdminMidiaRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/usuarios': {
       id: '/_authenticated/admin/usuarios'
       path: '/usuarios'
       fullPath: '/admin/usuarios'
       preLoaderRoute: typeof AuthenticatedAdminUsuariosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/vagas': {
+      id: '/_authenticated/admin/vagas'
+      path: '/vagas'
+      fullPath: '/admin/vagas'
+      preLoaderRoute: typeof AuthenticatedAdminVagasRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/curso/$id': {
@@ -507,8 +605,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAdministradoresRoute: typeof AuthenticatedAdminAdministradoresRoute
   AuthenticatedAdminCategoriasRoute: typeof AuthenticatedAdminCategoriasRoute
+  AuthenticatedAdminCertificadosRoute: typeof AuthenticatedAdminCertificadosRoute
+  AuthenticatedAdminConcursosRoute: typeof AuthenticatedAdminConcursosRoute
   AuthenticatedAdminCursosRoute: typeof AuthenticatedAdminCursosRoute
+  AuthenticatedAdminEstagiosRoute: typeof AuthenticatedAdminEstagiosRoute
+  AuthenticatedAdminMidiaRoute: typeof AuthenticatedAdminMidiaRoute
   AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
+  AuthenticatedAdminVagasRoute: typeof AuthenticatedAdminVagasRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminCursoIdRoute: typeof AuthenticatedAdminCursoIdRoute
 }
@@ -517,8 +620,13 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAdministradoresRoute:
     AuthenticatedAdminAdministradoresRoute,
   AuthenticatedAdminCategoriasRoute: AuthenticatedAdminCategoriasRoute,
+  AuthenticatedAdminCertificadosRoute: AuthenticatedAdminCertificadosRoute,
+  AuthenticatedAdminConcursosRoute: AuthenticatedAdminConcursosRoute,
   AuthenticatedAdminCursosRoute: AuthenticatedAdminCursosRoute,
+  AuthenticatedAdminEstagiosRoute: AuthenticatedAdminEstagiosRoute,
+  AuthenticatedAdminMidiaRoute: AuthenticatedAdminMidiaRoute,
   AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
+  AuthenticatedAdminVagasRoute: AuthenticatedAdminVagasRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminCursoIdRoute: AuthenticatedAdminCursoIdRoute,
 }
