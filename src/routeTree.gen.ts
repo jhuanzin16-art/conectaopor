@@ -31,6 +31,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminAdministradoresRouteImport } from './routes/_authenticated/admin/administradores'
 import { Route as AuthenticatedAdminCategoriasRouteImport } from './routes/_authenticated/admin/categorias'
 import { Route as AuthenticatedAdminCertificadosRouteImport } from './routes/_authenticated/admin/certificados'
+import { Route as AuthenticatedAdminConcursosRouteImport } from './routes/_authenticated/admin/concursos'
 import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
 import { Route as AuthenticatedAdminMidiaRouteImport } from './routes/_authenticated/admin/midia'
 import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
@@ -150,6 +151,12 @@ const AuthenticatedAdminCertificadosRoute =
     path: '/certificados',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminConcursosRoute =
+  AuthenticatedAdminConcursosRouteImport.update({
+    id: '/concursos',
+    path: '/concursos',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCursosRoute =
   AuthenticatedAdminCursosRouteImport.update({
     id: '/cursos',
@@ -200,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
+  '/admin/concursos': typeof AuthenticatedAdminConcursosRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/admin/midia': typeof AuthenticatedAdminMidiaRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
@@ -227,6 +235,7 @@ export interface FileRoutesByTo {
   '/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
+  '/admin/concursos': typeof AuthenticatedAdminConcursosRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/admin/midia': typeof AuthenticatedAdminMidiaRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
@@ -257,6 +266,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/administradores': typeof AuthenticatedAdminAdministradoresRoute
   '/_authenticated/admin/categorias': typeof AuthenticatedAdminCategoriasRoute
   '/_authenticated/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
+  '/_authenticated/admin/concursos': typeof AuthenticatedAdminConcursosRoute
   '/_authenticated/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/_authenticated/admin/midia': typeof AuthenticatedAdminMidiaRoute
   '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
@@ -287,6 +297,7 @@ export interface FileRouteTypes {
     | '/admin/administradores'
     | '/admin/categorias'
     | '/admin/certificados'
+    | '/admin/concursos'
     | '/admin/cursos'
     | '/admin/midia'
     | '/admin/usuarios'
@@ -314,6 +325,7 @@ export interface FileRouteTypes {
     | '/admin/administradores'
     | '/admin/categorias'
     | '/admin/certificados'
+    | '/admin/concursos'
     | '/admin/cursos'
     | '/admin/midia'
     | '/admin/usuarios'
@@ -343,6 +355,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/administradores'
     | '/_authenticated/admin/categorias'
     | '/_authenticated/admin/certificados'
+    | '/_authenticated/admin/concursos'
     | '/_authenticated/admin/cursos'
     | '/_authenticated/admin/midia'
     | '/_authenticated/admin/usuarios'
@@ -524,6 +537,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCertificadosRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/concursos': {
+      id: '/_authenticated/admin/concursos'
+      path: '/concursos'
+      fullPath: '/admin/concursos'
+      preLoaderRoute: typeof AuthenticatedAdminConcursosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/cursos': {
       id: '/_authenticated/admin/cursos'
       path: '/cursos'
@@ -566,6 +586,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAdministradoresRoute: typeof AuthenticatedAdminAdministradoresRoute
   AuthenticatedAdminCategoriasRoute: typeof AuthenticatedAdminCategoriasRoute
   AuthenticatedAdminCertificadosRoute: typeof AuthenticatedAdminCertificadosRoute
+  AuthenticatedAdminConcursosRoute: typeof AuthenticatedAdminConcursosRoute
   AuthenticatedAdminCursosRoute: typeof AuthenticatedAdminCursosRoute
   AuthenticatedAdminMidiaRoute: typeof AuthenticatedAdminMidiaRoute
   AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
@@ -579,6 +600,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
     AuthenticatedAdminAdministradoresRoute,
   AuthenticatedAdminCategoriasRoute: AuthenticatedAdminCategoriasRoute,
   AuthenticatedAdminCertificadosRoute: AuthenticatedAdminCertificadosRoute,
+  AuthenticatedAdminConcursosRoute: AuthenticatedAdminConcursosRoute,
   AuthenticatedAdminCursosRoute: AuthenticatedAdminCursosRoute,
   AuthenticatedAdminMidiaRoute: AuthenticatedAdminMidiaRoute,
   AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
