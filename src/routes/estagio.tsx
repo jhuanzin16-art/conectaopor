@@ -31,7 +31,7 @@ function EstagioPage() {
         title="Estágio"
         description="Estágios e programas de aprendizagem ideais para quem ainda está estudando."
       />
-      <OportunidadeList tipos={["Estágio", "Aprendizagem"]} />
+      <OportunidadeList tipo="estagio" />
     </>
   );
 }
