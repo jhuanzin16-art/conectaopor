@@ -33,8 +33,16 @@ function AdminLayout() {
         <AdminLink to="/admin">Dashboard</AdminLink>
         {canManageUsers && <AdminLink to="/admin/usuarios">Usuários</AdminLink>}
         <AdminLink to="/admin/cursos">Cursos</AdminLink>
+        <AdminLink to="/admin/vagas">Vagas</AdminLink>
+        <AdminLink to="/admin/concursos">Concursos</AdminLink>
+        <AdminLink to="/admin/estagios">Estágios</AdminLink>
+        <AdminLink to="/admin/curriculos">Currículos</AdminLink>
+        <AdminLink to="/admin/certificados">Certificados</AdminLink>
+        <AdminLink to="/admin/categorias">Categorias e etiquetas</AdminLink>
+        <AdminLink to="/admin/midia">Mídia</AdminLink>
         {isSuperAdmin && <AdminLink to="/admin/administradores">Administradores</AdminLink>}
       </nav>
+
       <div className="mt-8">
         <Outlet />
       </div>
