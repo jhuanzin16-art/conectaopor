@@ -39,53 +39,66 @@ function detalhe(rotulo: string, valor?: string | null) {
   return valor ? [{ rotulo, valor }] : [];
 }
 
-function mapear(tipo: Tipo, r: Record<string, string & null>): Item {
+type Bruto = Record<string, unknown>;
+
+function txt(r: Bruto, chave: string) {
+  const v = r[chave];
+  return typeof v === "string" ? v : "";
+}
+
+function mapear(tipo: Tipo, r: Bruto): Item {
   const base = {
-    id: r.id,
-    title: r.title,
-    description: r.description,
-    category_id: r.category_id,
-    tags: (r.tags as unknown as string[]) ?? [],
-    image_url: r.image_url,
-    featured: Boolean(r.featured),
-    position: Number(r.position ?? 0),
+    id: txt(r, "id"),
+    title: txt(r, "title"),
+    description: txt(r, "description"),
+    category_id: (r["category_id"] as string | null) ?? null,
+    tags: (r["tags"] as string[] | null) ?? [],
+    image_url: (r["image_url"] as string | null) ?? null,
+    featured: Boolean(r["featured"]),
+    position: Number(r["position"] ?? 0),
   };
 
   if (tipo === "concurso") {
     return {
       ...base,
-      subtitulo: r.organization,
-      local: [r.city, r.state].filter(Boolean).join(" - "),
+      subtitulo: txt(r, "organization"),
+      local: [txt(r, "city"), txt(r, "state")].filter(Boolean).join(" - "),
       detalhes: [
-        ...detalhe("Cargo", r.role),
-        ...detalhe("Vagas", r.vacancies),
-        ...detalhe("Remuneração", r.salary),
-        ...detalhe("Escolaridade", r.education),
-        ...detalhe("Taxa", r.registration_fee),
-        ...detalhe("Situação", r.situation),
-        ...detalhe("Prova", formatarData(r.exam_date)),
+        ...detalhe("Cargo", txt(r, "role")),
+        ...detalhe("Vagas", txt(r, "vacancies")),
+        ...detalhe("Remuneração", txt(r, "salary")),
+        ...detalhe("Escolaridade", txt(r, "education")),
+        ...detalhe("Taxa", txt(r, "registration_fee")),
+        ...detalhe("Situação", txt(r, "situation")),
+        ...detalhe("Prova", formatarData(txt(r, "exam_date") || null)),
       ],
-      requisitos: textoParaLista(r.notice_text ?? ""),
-      link: r.registration_url ?? r.notice_url ?? null,
-      prazo: formatarData(r.registration_deadline),
+      requisitos: textoParaLista(txt(r, "notice_text")),
+      link: txt(r, "registration_url") || txt(r, "notice_url") || null,
+      prazo: formatarData(txt(r, "registration_deadline") || null),
     };
   }
 
   return {
     ...base,
-    subtitulo: r.company,
-    local: r.location,
+    subtitulo: txt(r, "company"),
+    local: txt(r, "location"),
     detalhes: [
-      ...detalhe("Área", r.area),
-      ...detalhe("Modelo", r.work_model),
-      ...detalhe(tipo === "vaga" ? "Contrato" : "Curso exigido", r.contract_type ?? r.required_course),
-      ...detalhe(tipo === "vaga" ? "Salário" : "Bolsa", r.salary ?? r.stipend),
-      ...detalhe("Carga horária", r.weekly_hours),
-      ...detalhe("Escolaridade", r.education),
+      ...detalhe("Área", txt(r, "area")),
+      ...detalhe("Modelo", txt(r, "work_model")),
+      ...detalhe(
+        tipo === "vaga" ? "Contrato" : "Curso exigido",
+        tipo === "vaga" ? txt(r, "contract_type") : txt(r, "required_course"),
+      ),
+      ...detalhe(
+        tipo === "vaga" ? "Salário" : "Bolsa",
+        tipo === "vaga" ? txt(r, "salary") : txt(r, "stipend"),
+      ),
+      ...detalhe("Carga horária", txt(r, "weekly_hours")),
+      ...detalhe("Escolaridade", txt(r, "education")),
     ],
-    requisitos: textoParaLista(r.requirements ?? ""),
-    link: r.apply_url ?? null,
-    prazo: formatarData(r.deadline),
+    requisitos: textoParaLista(txt(r, "requirements")),
+    link: txt(r, "apply_url") || null,
+    prazo: formatarData(txt(r, "deadline") || null),
   };
 }
 
@@ -103,7 +116,7 @@ export function OportunidadeList({ tipo }: { tipo: Tipo }) {
         .order("featured", { ascending: false })
         .order("position");
       if (error) throw error;
-      return (data ?? []).map((r) => mapear(tipo, r as never));
+      return (data ?? []).map((r) => mapear(tipo, r as Bruto));
     },
   });
 
