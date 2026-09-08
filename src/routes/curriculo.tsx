@@ -103,6 +103,8 @@ function CurriculoPage() {
         <ModelosCurriculo />
 
         <div className="mt-10 rounded-3xl bg-primary-soft p-8 text-center">
+          <h2 className="text-2xl uppercase">Pronto para começar?</h2>
+
 
           <p className="mt-2 text-sm text-muted-foreground">
             Crie sua conta e monte seu currículo com o nosso passo a passo.
