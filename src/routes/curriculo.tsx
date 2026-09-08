@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader } from "@/components/site/PageHeader";
 
@@ -100,8 +102,12 @@ function CurriculoPage() {
           ))}
         </ol>
 
+        <ModelosCurriculo />
+
         <div className="mt-10 rounded-3xl bg-primary-soft p-8 text-center">
           <h2 className="text-2xl uppercase">Pronto para começar?</h2>
+
+
           <p className="mt-2 text-sm text-muted-foreground">
             Crie sua conta e monte seu currículo com o nosso passo a passo.
           </p>
@@ -114,5 +120,61 @@ function CurriculoPage() {
         </div>
       </div>
     </>
+  );
+}
+
+function ModelosCurriculo() {
+  const { data: modelos = [] } = useQuery({
+    queryKey: ["modelos-curriculo"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("resume_templates")
+        .select("id, name, description, file_url, preview_url, recommended")
+        .eq("active", true)
+        .order("position");
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+  if (modelos.length === 0) return null;
+
+  return (
+    <section className="mt-12">
+      <h2 className="text-2xl uppercase">Modelos prontos para baixar</h2>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {modelos.map((m) => (
+          <article key={m.id} className="rounded-3xl border border-border bg-card p-5">
+            {m.preview_url && (
+              <img
+                src={m.preview_url}
+                alt={`Prévia do modelo de currículo ${m.name}`}
+                loading="lazy"
+                className="h-40 w-full rounded-2xl border border-border object-cover"
+              />
+            )}
+            {m.recommended && (
+              <span className="mt-3 inline-block rounded-full bg-primary-soft px-3 py-1 text-[11px] font-bold uppercase text-primary">
+                Recomendado
+              </span>
+            )}
+            <h3 className="mt-2 text-lg leading-tight">{m.name}</h3>
+            {m.description && (
+              <p className="mt-1 text-sm text-muted-foreground">{m.description}</p>
+            )}
+            {m.file_url && (
+              <a
+                href={m.file_url}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-block rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground"
+              >
+                Baixar modelo
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }

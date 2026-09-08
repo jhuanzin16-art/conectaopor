@@ -101,9 +101,9 @@ export function GerenciadorOportunidades({
     setMsg("");
     const valores: Record<string, unknown> = {
       ...form,
-      category_id: form.category_id || null,
-      image_url: form.image_url || null,
-      published_at: form.status === "publicado" ? new Date().toISOString() : null,
+      category_id: form['category_id'] || null,
+      image_url: form['image_url'] || null,
+      published_at: form['status'] === "publicado" ? new Date().toISOString() : null,
     };
     for (const c of campos) {
       if (c.tipo === "date") valores[c.chave] = (form[c.chave] as string) || null;
@@ -157,12 +157,12 @@ export function GerenciadorOportunidades({
           <Campo
             label="Título"
             obrigatorio
-            valor={form.title as string}
+            valor={form['title'] as string}
             aoMudar={(v) => setForm({ ...form, title: v })}
           />
           <Selecao
             label="Categoria"
-            valor={form.category_id as string}
+            valor={form['category_id'] as string}
             aoMudar={(v) => setForm({ ...form, category_id: v })}
             opcoes={[
               { valor: "", rotulo: "Sem categoria" },
@@ -172,7 +172,7 @@ export function GerenciadorOportunidades({
           <Area
             label="Descrição"
             linhas={4}
-            valor={form.description as string}
+            valor={form['description'] as string}
             aoMudar={(v) => setForm({ ...form, description: v })}
             className="sm:col-span-2"
           />
@@ -202,26 +202,26 @@ export function GerenciadorOportunidades({
 
           <UploadArquivo
             label="Imagem de destaque"
-            valor={(form.image_url as string) ?? ""}
+            valor={(form['image_url'] as string) ?? ""}
             aoMudar={(v) => setForm({ ...form, image_url: v })}
             pasta={escopo}
             accept="image/*"
           />
           <Selecao
             label="Status"
-            valor={form.status as string}
+            valor={form['status'] as string}
             aoMudar={(v) => setForm({ ...form, status: v as Status })}
             opcoes={STATUS.map((s) => ({ valor: s.valor, rotulo: s.rotulo }))}
           />
           <SeletorEtiquetas
             etiquetas={etiquetas.filter((t) => t.active)}
-            selecionadas={(form.tags as string[]) ?? []}
+            selecionadas={(form['tags'] as string[]) ?? []}
             aoMudar={(v) => setForm({ ...form, tags: v })}
             className="sm:col-span-2"
           />
           <Marcador
             label="Destacar na página inicial"
-            valor={Boolean(form.featured)}
+            valor={Boolean(form['featured'])}
             aoMudar={(v) => setForm({ ...form, featured: v })}
           />
         </div>

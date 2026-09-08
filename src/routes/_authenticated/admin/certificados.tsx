@@ -21,7 +21,12 @@ export const Route = createFileRoute("/_authenticated/admin/certificados")({
   component: AdminCertificados,
 });
 
-type Campos = Record<string, { x: number; y: number; tamanho: number }>;
+type Posicao = { x: number; y: number; tamanho: number };
+type Campos = Record<string, Posicao>;
+
+function posicao(campos: Campos, chave: string): Posicao {
+  return campos[chave] ?? padraoCampos[chave] ?? { x: 50, y: 50, tamanho: 16 };
+}
 
 type Modelo = {
   id: string;
@@ -102,7 +107,7 @@ function AdminCertificados() {
       ...form,
       fields: {
         ...form.fields,
-        [chave]: { ...(form.fields[chave] ?? padraoCampos[chave]), [prop]: valor },
+        [chave]: { ...posicao(form.fields, chave), [prop]: valor },
       },
     });
   }
@@ -156,7 +161,7 @@ function AdminCertificados() {
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             <div className="space-y-3">
               {CAMPOS_AUTOMATICOS.map((c) => {
-                const v = form.fields[c.chave] ?? padraoCampos[c.chave];
+                const v = posicao(form.fields, c.chave);
                 return (
                   <div key={c.chave} className="rounded-2xl border border-border p-4">
                     <p className="text-sm font-bold">{c.rotulo}</p>
@@ -194,7 +199,7 @@ function AdminCertificados() {
                 />
               )}
               {CAMPOS_AUTOMATICOS.map((c) => {
-                const v = form.fields[c.chave] ?? padraoCampos[c.chave];
+                const v = posicao(form.fields, c.chave);
                 const exemplo: Record<string, string> = {
                   aluno: "Nome do Aluno",
                   curso: "Nome do Curso",

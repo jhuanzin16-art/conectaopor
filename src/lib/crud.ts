@@ -57,9 +57,9 @@ export function useAcoes(tabela: Tabela) {
     },
     async duplicar(registro: Record<string, unknown>, ajustes: Record<string, unknown> = {}) {
       const copia = { ...registro, ...ajustes };
-      delete copia.id;
-      delete copia.created_at;
-      delete copia.updated_at;
+      delete copia['id'];
+      delete copia['created_at'];
+      delete copia['updated_at'];
       const { error } = await supabase.from(tabela).insert(copia as never);
       if (error) throw error;
       atualizarCache();

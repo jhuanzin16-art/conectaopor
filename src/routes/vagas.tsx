@@ -31,7 +31,7 @@ function VagasPage() {
         title="Vagas de emprego"
         description="Oportunidades de emprego para quem está dando os primeiros passos na carreira."
       />
-      <OportunidadeList tipos={["Emprego"]} />
+      <OportunidadeList tipo="vaga" />
     </>
   );
 }

@@ -31,7 +31,7 @@ function ConcursosPage() {
         title="Concursos"
         description="Editais abertos com vagas de nível médio e superior em todo o país."
       />
-      <OportunidadeList tipos={["Concurso"]} />
+      <OportunidadeList tipo="concurso" />
     </>
   );
 }
