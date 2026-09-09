@@ -269,8 +269,10 @@ function CursoPage() {
                         Abrir material da aula
                       </a>
                     )}
+                    <MateriaisAula lessonId={aula.id} />
                   </div>
                 )}
+
               </li>
             );
           })}
