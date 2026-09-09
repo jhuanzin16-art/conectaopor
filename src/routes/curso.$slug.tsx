@@ -269,8 +269,10 @@ function CursoPage() {
                         Abrir material da aula
                       </a>
                     )}
+                    <MateriaisAula lessonId={aula.id} />
                   </div>
                 )}
+
               </li>
             );
           })}
@@ -281,6 +283,67 @@ function CursoPage() {
           )}
         </ul>
       </section>
+    </div>
+  );
+}
+
+type BlocoAula = {
+  id: string;
+  type: string;
+  data: { titulo?: string; texto?: string; url?: string } | null;
+};
+
+function MateriaisAula({ lessonId }: { lessonId: string }) {
+  const { data: blocos = [] } = useQuery({
+    queryKey: ["blocos-aula", lessonId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("lesson_blocks")
+        .select("id, type, data")
+        .eq("lesson_id", lessonId)
+        .order("position");
+      if (error) throw error;
+      return (data ?? []) as unknown as BlocoAula[];
+    },
+  });
+
+  if (blocos.length === 0) return null;
+
+  return (
+    <div className="mt-5 space-y-4">
+      {blocos.map((b) => {
+        const titulo = b.data?.titulo;
+        const url = b.data?.url;
+        return (
+          <div key={b.id} className="rounded-2xl border border-border p-4">
+            {titulo && <p className="font-bold text-foreground">{titulo}</p>}
+            {b.type === "texto" && b.data?.texto && (
+              <p className="mt-1 whitespace-pre-line">{b.data.texto}</p>
+            )}
+            {b.type === "imagem" && url && (
+              <img
+                src={url}
+                alt={titulo ?? "Imagem da aula"}
+                loading="lazy"
+                className="mt-2 w-full rounded-xl"
+              />
+            )}
+            {b.type === "video" && url && (
+              <video src={url} controls className="mt-2 w-full rounded-xl" />
+            )}
+            {(b.type === "pdf" || b.type === "link") && url && (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-block font-bold text-primary"
+              >
+                Abrir material
+              </a>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
