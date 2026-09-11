@@ -13,14 +13,22 @@
 - Fazer a barra de busca da home funcionar: ao digitar e buscar, redirecionar para `/cursos` (ou uma nova página `/busca`) com o termo, buscando cursos + oportunidades ao mesmo tempo.
 - Remover a dependência de `site-data.ts` na home (os dados falsos somem).
 
-### Fase 2 — Preencher o site com conteúdo de exemplo (sem você cadastrar nada)
+### Fase 2 — Preencher o site com cursos e conteúdo de verdade (sem você cadastrar nada)
 Popular o banco de uma vez com conteúdo realista, via migração:
-- **Cursos:** completar os 3 existentes com módulos/aulas e criar ~3 cursos externos recomendados (ex: Fundação Bradesco, Sebrae, Curso em Vídeo) com link.
+- **Cursos próprios com capa e conteúdo útil:** ~5 cursos completos, cada um com imagem de capa gerada, descrição, objetivos, módulos e aulas com texto real — focados no que ajuda de verdade quem está começando:
+  - Como montar seu currículo do zero
+  - Como se sair bem na entrevista de emprego
+  - Informática básica para o trabalho
+  - Excel do zero ao essencial
+  - Comunicação e postura profissional
+- **Cursos externos recomendados:** ~4 com capa, plataforma e link (Fundação Bradesco, Sebrae, Escola Virtual Gov, Curso em Vídeo).
 - **Vagas:** ~6 vagas publicadas (assistente administrativo, atendimento, marketing júnior, etc.) com requisitos, local, prazo e link.
 - **Concursos:** ~4 concursos (prefeitura, TRT, banco público) com cargo, vagas, taxa, datas.
 - **Estágios:** ~4 estágios (TI, RH, marketing) com bolsa, requisitos e link.
 - **Modelos de currículo:** ~3 modelos ativos com link de arquivo/preview.
 - Categorias e etiquetas necessárias para organizar tudo isso.
+- Os cards de curso na listagem e na home passam a mostrar a imagem de capa (hoje o card não exibe capa nenhuma).
+
 
 ### Fase 3 — Conteúdos/Dicas virando uma seção real de artigos
 - Criar tabela `articles` (título, slug, resumo, corpo em texto/markdown, imagem, categoria, etiquetas, status, publicado_em) com RLS + GRANTs.
