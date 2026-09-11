@@ -13,20 +13,27 @@
 - Fazer a barra de busca da home funcionar: ao digitar e buscar, redirecionar para `/cursos` (ou uma nova página `/busca`) com o termo, buscando cursos + oportunidades ao mesmo tempo.
 - Remover a dependência de `site-data.ts` na home (os dados falsos somem).
 
-### Fase 2 — Preencher o site com cursos e conteúdo de verdade (sem você cadastrar nada)
+### Fase 2 — Preencher o site com 30 cursos e conteúdo de verdade (sem você cadastrar nada)
 Popular o banco de uma vez com conteúdo realista, via migração:
-- **Cursos próprios com capa e conteúdo útil:** ~5 cursos completos, cada um com imagem de capa gerada, descrição, objetivos, módulos e aulas com texto real — focados no que ajuda de verdade quem está começando:
-  - Como montar seu currículo do zero
-  - Como se sair bem na entrevista de emprego
-  - Informática básica para o trabalho
-  - Excel do zero ao essencial
-  - Comunicação e postura profissional
-- **Cursos externos recomendados:** ~4 com capa, plataforma e link (Fundação Bradesco, Sebrae, Escola Virtual Gov, Curso em Vídeo).
-- **Vagas:** ~6 vagas publicadas (assistente administrativo, atendimento, marketing júnior, etc.) com requisitos, local, prazo e link.
-- **Concursos:** ~4 concursos (prefeitura, TRT, banco público) com cargo, vagas, taxa, datas.
-- **Estágios:** ~4 estágios (TI, RH, marketing) com bolsa, requisitos e link.
-- **Modelos de currículo:** ~3 modelos ativos com link de arquivo/preview.
-- Categorias e etiquetas necessárias para organizar tudo isso.
+
+**30 cursos, todos com imagem de capa**, divididos assim:
+- **~20 cursos próprios completos** — cada um com capa, descrição, objetivos, público-alvo, módulos e de 4 a 8 aulas com texto real escrito para o curso (não texto de enchimento), mais atividade final. Temas úteis para quem está começando:
+  - Carreira: currículo do zero, entrevista de emprego, primeiro emprego, LinkedIn, comunicação e postura profissional, organização e produtividade
+  - Informática: informática básica, Word, Excel do zero ao essencial, Excel intermediário, Google Drive e ferramentas online, segurança digital
+  - Negócios: atendimento ao cliente, vendas, rotinas administrativas, educação financeira, empreendedorismo
+  - Tecnologia: lógica de programação, introdução ao HTML e CSS, introdução ao marketing digital
+- **~10 cursos externos recomendados** com capa, plataforma e link (Fundação Bradesco, Sebrae, Escola Virtual Gov, Curso em Vídeo, Google Ateliê Digital, entre outros).
+
+**Videoaulas:** cada aula que fizer sentido ganha uma videoaula gratuita já existente no YouTube, incorporada dentro da aula (o campo de vídeo já existe no sistema). Gerar vídeo original com IA sairia caro demais para 30 cursos — por isso a escolha por vídeos gratuitos e públicos, sempre creditando o canal. Você pode trocar qualquer vídeo depois pelo painel.
+
+**Capas:** geradas por IA, no estilo visual do site (rosa e branco), uma por curso.
+
+Além dos cursos:
+- **Vagas:** ~8 vagas publicadas com requisitos, local, prazo e link.
+- **Concursos:** ~5 concursos (prefeitura, TRT, banco público) com cargo, vagas, taxa, datas.
+- **Estágios:** ~5 estágios (TI, RH, marketing, administrativo) com bolsa, requisitos e link.
+- **Modelos de currículo:** ~3 modelos ativos com preview.
+- Categorias e etiquetas para organizar tudo.
 - Os cards de curso na listagem e na home passam a mostrar a imagem de capa (hoje o card não exibe capa nenhuma).
 
 
