@@ -49,12 +49,21 @@ Além dos cursos:
 - Manter a edição de perfil e o botão sair como estão.
 - (A tabela `user_courses` antiga pode continuar existindo, mas o painel deixa de depender dela.)
 
+### Fase 5 — Chat de suporte com IA
+Botão flutuante de "Suporte" em todas as páginas que abre uma janela de conversa com um assistente de IA. Ele responde dúvidas sobre o site: como se inscrever em cursos, como funciona o certificado, como usar as vagas e o currículo, etc.
+- **Conversa única por usuário** (sem lista de conversas antigas).
+- **Histórico salvo no banco para usuários logados** — a conversa continua de onde parou ao voltar ao site. Visitante sem login conversa normalmente, mas a conversa não fica salva.
+- Respostas em streaming (o texto aparece digitando), com visual combinando com o site (rosa e branco).
+- Tabela `support_messages` (usuário, papel, conteúdo, data) com RLS: cada usuário só lê e grava as próprias mensagens; staff pode ler tudo se quiser acompanhar as dúvidas.
+- O assistente recebe como contexto um resumo do que existe no site (cursos, vagas, como se cadastrar) para responder certo.
+
 ## Detalhes técnicos
 - Home: queries Supabase diretas no componente com `useQuery` (mesmo padrão das outras páginas públicas).
 - Busca: termo via `useNavigate` para `/cursos` com query string, ou página `/busca` única que consulta cursos + 3 tabelas de oportunidades.
-- Migração única com `INSERT` literais para todo o conteúdo de exemplo (cursos, oportunidades, currículos, categorias, etiquetas, artigos).
+- Conteúdo de exemplo: `INSERT` literais via run_sql (cursos, módulos, aulas, blocos de aula, oportunidades, currículos, categorias, etiquetas, artigos). Capas geradas com a ferramenta de imagem e enviadas para a biblioteca de mídia.
 - Tabela `articles`: mesma estrutura de status/categorias/etiquetas já usada pelas oportunidades, reaproveitando `content_categories` (scope `conteudo`) e `content_tags`.
 - Painel: substituir a query de `user_courses` por `enrollments` com join em `courses`, reusando o tipo já usado em `/meus-cursos`.
+- Chat: rota de servidor `src/routes/api/chat.ts` com streaming via Lovable AI (modelo padrão, sem chave extra), componente flutuante montado no `__root`, AI SDK `useChat` no cliente, histórico persistido em `support_messages` apenas quando há sessão.
 
 ## Ordem sugerida
-Fase 2 primeiro (preencher conteúdo) → Fase 1 (home real) → Fase 3 (artigos) → Fase 4 (painel). Assim a home já tem o que mostrar assim que for conectada.
+Fase 2 primeiro (preencher conteúdo) → Fase 1 (home real) → Fase 3 (artigos) → Fase 4 (painel) → Fase 5 (chat). Assim a home já tem o que mostrar assim que for conectada.
