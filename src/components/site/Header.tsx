@@ -126,6 +126,15 @@ export function Header() {
           <div className="mt-3 flex gap-2">
             {loading ? null : session ? (
               <>
+                {isStaff && (
+                  <Link
+                    to="/admin"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 rounded-full border border-primary px-4 py-2 text-center text-sm font-bold text-primary"
+                  >
+                    Admin
+                  </Link>
+                )}
                 <Link
                   to="/painel"
                   onClick={() => setOpen(false)}
